@@ -37,12 +37,11 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 
 
 
-
 # Task Flow
 
-A full-stack task management application built with Next.js, TypeScript, Prisma, and MySQL.
+A full-stack task management application built with **Next.js, TypeScript, Prisma, and MySQL**.
 
-Task Flow provides role-based access for administrators and employees. Employees can manage their tasks, while administrators can manage users, monitor tasks, and export task data.
+Task Flow provides role-based access for **administrators and employees**. Employees can manage their tasks, while administrators can manage users, monitor tasks, and export task data.
 
 ## Features
 
@@ -95,7 +94,7 @@ Task Flow provides role-based access for administrators and employees. Employees
 
 ## Application Architecture
 
-text
+```text
                     ┌─────────────────┐
                     │      Client     │
                     │   React / Next  │
@@ -126,12 +125,11 @@ text
                     ┌─────────────────┐
                     │      MySQL      │
                     └─────────────────┘
+```
 
+## Project Structure
 
-
-PROJECT STRUCTURE:
-==================
-
+```text
 Task_Flow/
 │
 ├── app/
@@ -183,74 +181,73 @@ Task_Flow/
 ├── prisma.config.ts
 ├── tsconfig.json
 └── README.md
+```
 
+## API Endpoints
 
+### Authentication
 
-API Endpoints:
-==============
-| Method | Endpoint             | Description                              |
-| ------ | -------------------- | ---------------------------------------- |
-| POST   | `/api/auth/register` | Register a new user                      |
-| POST   | `/api/auth/login`    | Authenticate a user                      |
-| GET    | `/api/auth/me`       | Get the authenticated user's information |
+| Method | Endpoint | Description |
+|---|---|---|
+| POST | `/api/auth/register` | Register a new user |
+| POST | `/api/auth/login` | Authenticate a user |
+| GET | `/api/auth/me` | Get the authenticated user's information |
 
+### Tasks
 
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/api/tasks` | Retrieve tasks |
+| POST | `/api/tasks` | Create a task |
+| GET | `/api/tasks/[id]` | Retrieve a specific task |
+| PUT/PATCH | `/api/tasks/[id]` | Update a task |
+| DELETE | `/api/tasks/[id]` | Delete a task |
+| GET | `/api/tasks/export` | Export task data |
 
-Tasks:
-======
-| Method    | Endpoint            | Description              |
-| --------- | ------------------- | ------------------------ |
-| GET       | `/api/tasks`        | Retrieve tasks           |
-| POST      | `/api/tasks`        | Create a task            |
-| GET       | `/api/tasks/[id]`   | Retrieve a specific task |
-| PUT/PATCH | `/api/tasks/[id]`   | Update a task            |
-| DELETE    | `/api/tasks/[id]`   | Delete a task            |
-| GET       | `/api/tasks/export` | Export task data         |
+### Users
 
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/api/users` | Retrieve users |
+| POST | `/api/users` | Create a user |
+| GET | `/api/users/[id]` | Retrieve a specific user |
+| PUT/PATCH | `/api/users/[id]` | Update a user |
+| DELETE | `/api/users/[id]` | Delete a user |
 
+### Database
 
-Users:
-======
-| Method    | Endpoint          | Description              |
-| --------- | ----------------- | ------------------------ |
-| GET       | `/api/users`      | Retrieve users           |
-| POST      | `/api/users`      | Create a user            |
-| GET       | `/api/users/[id]` | Retrieve a specific user |
-| PUT/PATCH | `/api/users/[id]` | Update a user            |
-| DELETE    | `/api/users/[id]` | Delete a user            |
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/api/test-db` | Test database connectivity |
 
+## Database
 
-Database:
-=========
-| Endpoint           | Description                |
-| ------------------ | -------------------------- |
-| GET `/api/test-db` | Test database connectivity |
-
-
-
-Database:
-=========
-
-Task Flow uses MySQL with Prisma ORM.
+Task Flow uses **MySQL** with **Prisma ORM**.
 
 The Prisma schema is located at:
+
+```text
 prisma/schema.prisma
+```
 
 Database migrations are maintained under:
+
+```text
 prisma/migrations/
+```
 
 The main entities are:
-User
-Task
+
+- `User`
+- `Task`
 
 Users and tasks are connected through database relationships to support task assignment and role-based access.
 
+## Authentication Flow
 
+Task Flow uses **JWT-based authentication**.
 
-Authentication Flow:
-====================
-Task Flow uses JWT-based authentication.
-
+```text
 User
  │
  ├── Register
@@ -279,105 +276,123 @@ User
      ▼     ▼
   Tasks   Users
           & Tasks
+```
 
+Different application areas are protected according to the authenticated user's role.
 
+## Getting Started
 
+### 1. Clone the repository
 
-Getting Started:
-================
+```bash
+git clone https://github.com/Pavani-Dev-99/Task_Flow.git
+cd Task_Flow
+```
 
-1. Clone the repository
-     git clone https://github.com/Pavani-Dev-99/Task_Flow.git
-     cd Task_Flow
-   
-2. Install dependencies
-     npm install
-   
-3. Configure environment variables
-     Create a .env file in the project root:
-         DATABASE_URL="mysql://USERNAME:PASSWORD@localhost:3306/DATABASE_NAME"
-         JWT_SECRET="your-strong-secret-key"
+### 2. Install dependencies
 
-     Replace the placeholder values with your MySQL credentials and a strong JWT secret.
-     Do not commit .env files or other secrets to GitHub.
+```bash
+npm install
+```
 
-4. Configure the database
-     Make sure MySQL is running and the configured database exists.
-         Run the Prisma migrations:
-              npx prisma migrate dev
-         If Prisma Client needs to be regenerated:
-              npx prisma generate
-   
-5. Start the development server
-      npm run dev
+### 3. Configure environment variables
+
+Create a `.env` file in the project root:
+
+```env
+DATABASE_URL="mysql://USERNAME:PASSWORD@localhost:3306/DATABASE_NAME"
+JWT_SECRET="your-strong-secret-key"
+```
+
+Replace the placeholder values with your MySQL credentials and a strong JWT secret.
+
+**Do not commit `.env` files or other secrets to GitHub.**
+
+### 4. Configure the database
+
+Make sure MySQL is running and the configured database exists.
+
+Run Prisma migrations:
+
+```bash
+npx prisma migrate dev
+```
+
+If Prisma Client needs to be regenerated:
+
+```bash
+npx prisma generate
+```
+
+### 5. Start the development server
+
+```bash
+npm run dev
+```
 
 Open:
-    http://localhost:3000
 
-    
-Development Commands:
-=====================
+```text
+http://localhost:3000
+```
+
+## Development Commands
 
 Start the development server:
+
+```bash
 npm run dev
+```
 
 Create a production build:
+
+```bash
 npm run build
+```
 
 Start the production server:
+
+```bash
 npm start
+```
 
 Run ESLint:
-npm run lint
 
-Security:
-==========
+```bash
+npm run lint
+```
+
+## Security
 
 The application implements:
 
-JWT-based authentication
-Protected API endpoints
-Authentication middleware
-Role-based authorization
-Server-side access control
-Environment variables for sensitive configuration
+- JWT-based authentication
+- Protected API endpoints
+- Authentication middleware
+- Role-based authorization
+- Server-side access control
+- Environment variables for sensitive configuration
 
 Sensitive information such as database credentials and JWT secrets must never be committed to the repository.
 
-Future Improvements:
-====================
+## Future Improvements
 
 Potential improvements include:
 
-Improved UI/UX
-Task filtering and search
-Pagination
-Task priority management
-Task deadlines and reminders
-Improved validation and error handling
-Automated unit and integration testing
-Docker support
-CI/CD pipeline
-Production deployment
-Improved audit logging
+- Improved UI/UX
+- Task filtering and search
+- Pagination
+- Task priority management
+- Task deadlines and reminders
+- Improved validation and error handling
+- Automated unit and integration testing
+- Docker support
+- CI/CD pipeline
+- Production deployment
+- Improved audit logging
 
-Author:
-=======
+## Author
 
-Pavani Madhabattula
+**Pavani Madhabattula**
 
-GitHub:
-https://github.com/Pavani-Dev-99
-
-
-
-
-
-
-
-
-
-
-
-
-          
+[GitHub](https://github.com/Pavani-Dev-99)
